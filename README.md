@@ -13,7 +13,7 @@ $ npm install -g yo
 Install the generator:
 
 ```
-$ npm install yeomify-landing
+$ npm install generator-yeomify-landing
 ```
 
 Then you can create a folder for the generator and unfold it:
