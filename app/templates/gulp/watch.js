@@ -29,7 +29,6 @@ gulp.task('watch:sync', function() {
 /**
  *	Styles task
  *	@desc Concatenate css, copy file to temp folder
- *	@todo Add sourcemap
  *	@return
  */
 
@@ -52,7 +51,6 @@ gulp.task('watch:styles', function() {
 /**
  *	Less task
  *	@desc Concatenate/compress less, copy file to temp folder
- *	@todo Add sourcemaps
  *	@return
  */
 
@@ -101,7 +99,6 @@ gulp.task('watch:sass', function() {
  *	Validation styles task
  *	@extends sass, less, styles
  *	@desc Validate styles with csslint
- *	@todo Remove tmp folder before lint run; Lint config as external file
  *	@return
  */
 
@@ -143,7 +140,6 @@ gulp.task('watch:jade', function() {
  *	Bower task
  *	@extends jade
  *	@desc Inject bower dependencies in html
- *	@todo Install bower dependencies before run wiredep task
  *	@return
  */
 
@@ -233,7 +229,6 @@ gulp.task('watch:inject', ['watch:wiredep', 'watch:jade', 'watch:lintstyles'], f
  *	Watch
  *	@extends inject, sync
  *	@desc Run browser sync and watcher for src folder
- *	@todo Show notify when watch is running
  */
 
 gulp.task('watch', ['watch:inject', 'watch:sync'], function() {

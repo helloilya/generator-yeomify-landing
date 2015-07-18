@@ -201,7 +201,6 @@ gulp.task('build:jade', function() {
  *	Bower task
  *	@extends jade
  *	@desc Inject bower dependencies to html
- *	@todo Install bower dependencies before it run wiredep task
  *	@return
  */
 
