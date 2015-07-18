@@ -1,0 +1,1 @@
+# <%= yeomify_name %>

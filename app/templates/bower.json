@@ -1,0 +1,9 @@
+{
+  "name": "<%= yeomify_name %>",
+  "version": "0.0.0",
+  "description": "<%= yeomify_desc %>",
+  "dependencies": {<% if(yeomify_libs) { %>
+    "modernizr": "~2.8.3",
+    "normalize-css": "~3.0.3"
+  <% } %>}
+}

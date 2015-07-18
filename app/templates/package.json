@@ -1,0 +1,41 @@
+{
+  "name": "<%= yeomify_name %>",
+  "version": "0.0.0",
+  "description": "<%= yeomify_desc %>",
+  "devDependencies": {
+    "bower": "^1.4.1",
+    "browser-sync": "^1.5.8",
+    "gulp": "^3.8.8",
+    "gulp-autoprefixer": "^1.0.1",
+    "gulp-concat": "^2.4.1",
+    "gulp-csslint": "^0.1.5",
+    "gulp-csso": "^0.2.9",
+    "gulp-filter": "^1.0.2",
+    "gulp-htmlhint": "0.0.9",
+    "gulp-if": "^1.2.5",
+    "gulp-ignore": "^1.2.1",
+    "gulp-imagemin": "^1.1.0",
+    "gulp-inject": "^1.0.2",<% if(yeomify_jade) { %>
+    "gulp-jade": "^0.11.0",<% } %>
+    "gulp-jshint": "^1.8.5",
+    "gulp-jsvalidate": "^1.0.1",<% if(yeomify_styles == 'less') { %>
+    "gulp-less": "^3.0.3",<% } %>
+    "gulp-load-plugins": "^0.8.1",
+    "gulp-minify-html": "^0.1.6",
+    "gulp-notify": "^2.0.0",
+    "gulp-order": "^1.1.1",
+    "gulp-plumber": "^0.6.6",
+    "gulp-remove-code": "^1.0.0",
+    "gulp-remove-files": "0.0.3",
+    "gulp-rename": "^1.2.0",
+    "gulp-replace": "^0.4.0",
+    "gulp-rev": "^3.0.1",
+    "gulp-rimraf": "^0.1.1",<% if(yeomify_styles == 'sass') { %>
+    "gulp-ruby-sass": "^0.7.1",<% } %>
+    "gulp-size": "^1.1.0",
+    "gulp-uglify": "^1.0.1",
+    "gulp-useref": "^1.1.2",
+    "require-dir": "^0.1.0",
+    "wiredep": "^1.8.6"
+  }
+}
