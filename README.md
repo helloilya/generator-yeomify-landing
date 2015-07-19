@@ -35,6 +35,7 @@ You can change the gulp options in `config.js` file.
 
 ### Release History
 
+* 1.0.2 — Added yeoman generator support.
 * 1.0.1 — Bugs fixed.
 * 1.0.0 — Added npm support.
 * 0.1.0 — Initial release.
