@@ -78,9 +78,9 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 
 	dotfiles: function() {
 
-		this.copy('.bowerrc', '.bowerrc');
-		this.copy('.gitattributes', '.gitattributes');
-		this.copy('.gitignore', '.gitignore');
+		this.copy('bowerrc', '.bowerrc');
+		this.copy('gitattributes', '.gitattributes');
+		this.copy('gitignore', '.gitignore');
 
 	},
 
