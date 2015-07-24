@@ -38,7 +38,9 @@ gulp.task('watch:styles', function() {
 
 		return gulp.src(config.src + config.folder.styles + '/**/*.css')
 			.pipe($.plumber())
+			.pipe($.sourcemaps.init())
 			.pipe($.concat('style.css'))
+			.pipe($.sourcemaps.write('./'))
 			.pipe(gulp.dest(config.src + config.tmp))
 			.pipe(sync.reload({
 				stream: true
@@ -60,7 +62,9 @@ gulp.task('watch:less', function() {
 
 		return gulp.src(config.src + config.folder.styles + '/style.less')
 			.pipe($.plumber())
+			.pipe($.sourcemaps.init())
 			.pipe($.less())
+			.pipe($.sourcemaps.write('./'))
 			.pipe(gulp.dest(config.src + config.tmp))
 			.pipe(sync.reload({
 				stream: true

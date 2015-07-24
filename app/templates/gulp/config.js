@@ -32,7 +32,7 @@ module.exports = {
 		jade: <%= yeomify_jade %>,
 		styles: '<%= yeomify_styles %>',
 		scripts: 'scripts',
-		vendors: <%= yeomify_libs %>
+		vendors: 'bower_components'
 	},
 
 	// Browser prefixs for autoprefixer
