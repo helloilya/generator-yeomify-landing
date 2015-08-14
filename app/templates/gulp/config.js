@@ -29,6 +29,7 @@ module.exports = {
 		fonts: '',
 		icons: '',
 		images: '',
+		pictures: '',
 		jade: <%= yeomify_jade %>,
 		styles: '<%= yeomify_styles %>',
 		scripts: 'scripts',

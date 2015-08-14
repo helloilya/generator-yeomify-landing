@@ -92,6 +92,7 @@ gulp.task('build:images', function() {
 
 	if(config.folder.icons) { path.push(config.folder.icons); }
 	if(config.folder.images) { path.push(config.folder.images); }
+	if(config.folder.pictures) { path.push(config.folder.pictures); }
 
 	path.forEach(function(folder) {
 
