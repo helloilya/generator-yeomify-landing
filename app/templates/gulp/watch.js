@@ -41,10 +41,7 @@ gulp.task('watch:styles', function() {
 			.pipe($.sourcemaps.init())
 			.pipe($.concat('style.css'))
 			.pipe($.sourcemaps.write('./'))
-			.pipe(gulp.dest(config.src + config.tmp))
-			.pipe(sync.reload({
-				stream: true
-			}));
+			.pipe(gulp.dest(config.src + config.tmp));
 
 	}
 
@@ -65,10 +62,7 @@ gulp.task('watch:less', function() {
 			.pipe($.sourcemaps.init())
 			.pipe($.less())
 			.pipe($.sourcemaps.write('./'))
-			.pipe(gulp.dest(config.src + config.tmp))
-			.pipe(sync.reload({
-				stream: true
-			}));
+			.pipe(gulp.dest(config.src + config.tmp));
 
 	}
 
@@ -90,10 +84,7 @@ gulp.task('watch:sass', function() {
 				style: 'nested',
 				check: true
 			}))
-			.pipe(gulp.dest(config.src + config.tmp))
-			.pipe(sync.reload({
-				stream: true
-			}));
+			.pipe(gulp.dest(config.src + config.tmp));
 
 	}
 
@@ -131,10 +122,7 @@ gulp.task('watch:jade', function() {
 		return gulp.src(config.src + config.folder.jade + '/**/[^_]*.jade')
 			.pipe($.plumber())
 			.pipe($.jade({ pretty: '\t' }))
-			.pipe(gulp.dest(config.src))
-			.pipe(sync.reload(
-				{ stream: true }
-			));
+			.pipe(gulp.dest(config.src));
 
 	}
 
@@ -223,9 +211,12 @@ gulp.task('watch:inject', ['watch:wiredep', 'watch:jade', 'watch:lintstyles'], f
 		}
 	};
 
-	gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])
+	return gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])
 		.pipe($.inject(gulp.src(sources), transform))
-		.pipe(gulp.dest(config.src));
+		.pipe(gulp.dest(config.src))
+		.pipe(sync.reload(
+			{ stream: true }
+		));
 
 });
 
@@ -238,11 +229,11 @@ gulp.task('watch:inject', ['watch:wiredep', 'watch:jade', 'watch:lintstyles'], f
 gulp.task('watch', ['watch:inject', 'watch:sync'], function() {
 
 	if(config.folder.styles && config.css) {
-		gulp.watch(config.src + config.folder.styles + '/**/*.{css,scss,less}', ['watch:lintstyles']);
+		gulp.watch(config.src + config.folder.styles + '/**/*.{css,scss,less}', ['watch:inject']);
 	}
 
 	if(config.folder.jade) {
-		gulp.watch(config.src + config.folder.jade + '/**/*.jade', ['watch:jade']);
+		gulp.watch(config.src + config.folder.jade + '/**/*.jade', ['watch:inject']);
 	}
 
 	if(config.folder.scripts) {
