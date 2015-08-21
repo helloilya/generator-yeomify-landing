@@ -35,6 +35,7 @@ You can change the gulp options in `config.js` file.
 
 ### Release History
 
+* 1.0.5 - Bug fixed in `inject` task, update `gulp-minify-html` config
 * 1.0.4 — Added html5doctor reset stylesheet, bug fixed in watch tasks, added `pictures` folder to config
 * 1.0.3 — Added sourcemaps, bug fixed with `.gitignore`.
 * 1.0.2 — Added yeoman generator support.
