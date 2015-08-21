@@ -54,7 +54,7 @@ gulp.task('build:copy', function() {
 			config.copyfiles[i] = config.src + config.copyfiles[i];
 		}
 
-		gulp.src(config.copyfiles)
+		return gulp.src(config.copyfiles)
 			.pipe(gulp.dest(config.dist))
 			.pipe($.size());
 
@@ -275,11 +275,11 @@ gulp.task('build:assets', ['build:inject'], function() {
 
 /**
  *	Build task
- *	@extends fonts, images, assets
+ *	@extends copy, fonts, images, assets
  *	@desc Inject js and css files to html, compress html and replace paths
  */
 
-gulp.task('build', ['build:fonts', 'build:images', 'build:assets'], function() {
+gulp.task('build', ['build:copy', 'build:fonts', 'build:images', 'build:assets'], function() {
 
 	gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])
 		.pipe($.inject(gulp.src(config.dist + 'css/**/*.css', { read: true }), { relative: true }))
@@ -287,9 +287,12 @@ gulp.task('build', ['build:fonts', 'build:images', 'build:assets'], function() {
 		.pipe($.removeCode({ build: true }))
 		.pipe($.replace('.' + config.dist, ''))
 		.pipe($.minifyHtml({
-			empty: true,
-			spare: true,
-			quotes: true
+			comments: false,
+			empty: false,
+			conditionals: true,
+			cdata: true,
+			quotes: true,
+			spare: true
 		}))
 		.pipe($.notify({
 			title: 'Gulp',
