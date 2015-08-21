@@ -205,9 +205,19 @@ gulp.task('watch:inject', ['watch:wiredep', 'watch:jade', 'watch:lintstyles'], f
 	}
 
 	var transform = {
-		transform: function(filepath, file, i, length) {
+		transform: function(filepath, file, i, length, targetFile) {
+
+			var root = config.src.slice(2),
+				targetpath = targetFile.path.slice(targetFile.path.indexOf(root) + root.length);
+
 			filepath = filepath.slice(filepath.slice(1).indexOf('/') + 2);
-			return $.inject.transform.apply($.inject.transform, [filepath, file, i, length]);
+
+			if(targetpath.indexOf('/') + 1) {
+				filepath = '../' + filepath;
+			}
+
+			return $.inject.transform.apply($.inject.transform, [filepath, file, i, length, targetFile]);
+
 		}
 	};
 
