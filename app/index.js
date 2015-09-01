@@ -37,7 +37,7 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 			{
 				name: 'desc',
 				message: 'What is your app\'s description?',
-				default: 'Yeoman generator'
+				default: 'Yeomify generator'
 			},
 			{
 				type: 'confirm',
@@ -81,6 +81,12 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 		this.copy('bowerrc', '.bowerrc');
 		this.copy('gitattributes', '.gitattributes');
 		this.copy('gitignore', '.gitignore');
+
+		// Validators
+
+		this.copy('csslintrc', '.csslintrc');
+		this.copy('htmlhintrc', '.htmlhintrc');
+		this.copy('jshintrc', '.jshintrc');
 
 	},
 

@@ -100,11 +100,7 @@ gulp.task('watch:sass', function() {
 gulp.task('watch:lintstyles', ['watch:sass', 'watch:less', 'watch:styles'], function() {
 
 	return gulp.src(config.src + config.tmp + '/**/*.css')
-		.pipe($.csslint({
-			'box-sizing': false,
-			'text-indent': false,
-			'font-sizes': false,
-		}))
+		.pipe($.csslint('.csslintrc'))
 		.pipe($.csslint.reporter());
 
 });
@@ -160,7 +156,7 @@ gulp.task('watch:scripts', function() {
 
 		gulp.src(config.src + config.folder.scripts + '/**/*.js')
 			.pipe($.plumber())
-			.pipe($.jshint())
+			.pipe($.jshint('.jshintrc'))
 			.pipe($.jshint.reporter())
 			.pipe($.jsvalidate())
 			.pipe(sync.reload({
@@ -180,7 +176,7 @@ gulp.task('watch:html', function() {
 
 	gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])
 		.pipe($.plumber())
-		.pipe($.htmlhint())
+		.pipe($.htmlhint('.htmlhintrc'))
 		.pipe($.htmlhint.reporter())
 		.pipe(sync.reload({
 			stream: true

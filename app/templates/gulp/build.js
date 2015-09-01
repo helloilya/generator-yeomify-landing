@@ -48,8 +48,6 @@ gulp.task('build:copy', function() {
 
 	if(config.copyfiles.length) {
 
-		// Update paths
-
 		for(var i = 0, l = config.copyfiles.length; i < l; i++) {
 			config.copyfiles[i] = config.src + config.copyfiles[i];
 		}
