@@ -4,19 +4,19 @@
 
 ### Usage
 
-Make sure you have `yeoman` installed:
+Make sure you have `yeoman`, `bower` and `gulp` installed:
 
 ```
-$ npm install -g yo
+$ npm install -g yo bower gulp
 ```
 
 Install the generator:
 
 ```
-$ npm install generator-yeomify-landing
+$ npm install -g generator-yeomify-landing
 ```
 
-Then you can create a folder for the generator and unfold it:
+Then, create a folder for the generator and unfold it:
 
 ```
 $ yo yeomify-landing
@@ -24,19 +24,46 @@ $ yo yeomify-landing
 
 During installation you can install [jade](http://jade-lang.com) as template engine and [sass](http://sass-lang.com) or [less](http://lesscss.org) as css preprocessor.
 
+![Yeomify landing generator](http://fedotov.work/yeomify/yeomify-bash.png)
+
+Then, run `npm install` and `bower install` to install the required dependencies.
+
+### Directory Layout
+
+After installation you will have the following directory structure:
+
+```
+├── app
+│   ├── jade
+│   ├── styles
+│   ├── scripts
+│   └── index.html
+├── gulp
+│   ├── build.js
+│   ├── config.js
+│   └── watch.js
+├── bower.json
+├── gulpfile.js
+├── package.json
+└── readme.md
+```
+
 ### Development
 
-You can use the following commands for development:
+Use the following commands for development:
 
 * `gulp watch` run a watcher for the `app` folder;
-* `gulp build` build the project in `dist` folder.
+* `gulp build` build the project in `dist` folder;
+* `gulp build:watch` run a watcher for the `dist` folder;
+* `gulp build:clean` remove `dist` and `.tmp` folders.
 
 You can change the gulp options in `config.js` file.
 
 ### Release History
 
-* 1.0.5 - Bug fixed in `inject` task, update `gulp-minify-html` config
-* 1.0.4 — Added html5doctor reset stylesheet, bug fixed in watch tasks, added `pictures` folder to config
+* 1.0.6 — Validator options as external files, updated documentation.
+* 1.0.5 — Bug fixed in `inject` task, update `gulp-minify-html` config.
+* 1.0.4 — Added html5doctor reset stylesheet, bug fixed in watch tasks, added `pictures` folder to config.
 * 1.0.3 — Added sourcemaps, bug fixed with `.gitignore`.
 * 1.0.2 — Added yeoman generator support.
 * 1.0.1 — Bugs fixed.
