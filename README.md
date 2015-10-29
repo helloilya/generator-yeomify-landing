@@ -1,6 +1,6 @@
 # Yeomify landing generator
 
-> Yeoman generator for landing project powered by Gulp
+> Yeoman generator for landing project powered by Gulp.
 
 ### Usage
 
@@ -22,7 +22,7 @@ Then, create a folder for the generator and unfold it:
 $ yo yeomify-landing
 ```
 
-During installation you can install [jade](http://jade-lang.com) as template engine and [sass](http://sass-lang.com) or [less](http://lesscss.org) as css preprocessor.
+During installation you can install [jade](http://jade-lang.com) as template engine and [sass](http://sass-lang.com), [less](http://lesscss.org) or [stylus](https://learnboost.github.io/stylus/) as css preprocessor.
 
 ![Yeomify landing generator](http://fedotov.work/yeomify/yeomify-bash.png)
 
@@ -30,7 +30,7 @@ Then, run `npm install` and `bower install` to install the required dependencies
 
 ### Directory Layout
 
-After installation you will have the following directory structure:
+After installation you'll have the following directory structure:
 
 ```
 ├── app
@@ -53,14 +53,16 @@ After installation you will have the following directory structure:
 Use the following commands for development:
 
 * `gulp watch` run a watcher for the `app` folder;
-* `gulp build` build the project in `dist` folder;
+* `gulp build` build the project to `dist` folder;
+* `gulp build --abspaths` build the project to `dist` folder with the absolute paths (css and js files);
 * `gulp build:watch` run a watcher for the `dist` folder;
 * `gulp build:clean` remove `dist` and `.tmp` folders.
 
-You can change the gulp options in `config.js` file.
+Also, you can change the gulp options in `config.js` file.
 
 ### Release History
 
+* 1.1.0 — Added stylus preprocessor, added `--abspaths` parameter to `build` task, updated less structure folder.
 * 1.0.6 — Validator options as external files, updated documentation.
 * 1.0.5 — Bug fixed in `inject` task, update `gulp-minify-html` config.
 * 1.0.4 — Added html5doctor reset stylesheet, bug fixed in watch tasks, added `pictures` folder to config.
