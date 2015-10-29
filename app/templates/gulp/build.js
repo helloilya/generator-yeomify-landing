@@ -177,6 +177,28 @@ gulp.task('build:sass', function() {
 });
 
 /**
+ *	Stylus task
+ *	@desc Concatenate/compress stylus, copy file to temp folder
+ *	@return
+ */
+
+gulp.task('build:stylus', function() {
+
+	if(config.folder.styles && config.css === 'stylus') {
+
+		return gulp.src(config.src + config.folder.styles + '/style.styl')
+			.pipe($.plumber())
+			.pipe($.stylus({
+				compress: true
+			}))
+			.pipe(gulp.dest(config.tmp))
+			.pipe($.size());
+
+	}
+
+});
+
+/**
  *	Jade task
  *	@desc Compile jade templates
  *	@return
@@ -224,7 +246,7 @@ gulp.task('build:wiredep', ['build:jade'], function() {
  *	@return
  */
 
-gulp.task('build:inject', ['build:styles', 'build:less', 'build:sass', 'build:wiredep', 'build:jade'], function() {
+gulp.task('build:inject', ['build:styles', 'build:less', 'build:sass', 'build:stylus', 'build:wiredep', 'build:jade'], function() {
 
 	return gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])
 		.pipe($.inject(gulp.src(config.src + config.folder.scripts + '/**/*.js'), {

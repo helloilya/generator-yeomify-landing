@@ -19,7 +19,7 @@ module.exports = {
 
 	rev: false,
 
-	// Style type [styles, less, sass]. Selected when generating project
+	// Style type [styles, less, sass, stylus]. Selected when generating project
 
 	css: '<%= yeomify_styles %>',
 

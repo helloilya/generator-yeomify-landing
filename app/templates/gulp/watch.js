@@ -91,13 +91,34 @@ gulp.task('watch:sass', function() {
 });
 
 /**
+ *	Stylus task
+ *	@desc Concatenate/compress stylus, copy file to temp folder
+ *	@return
+ */
+
+gulp.task('watch:stylus', function() {
+
+	if(config.folder.styles && config.css === 'stylus') {
+
+		return gulp.src(config.src + config.folder.styles + '/style.styl')
+			.pipe($.plumber())
+			.pipe($.sourcemaps.init())
+			.pipe($.stylus())
+			.pipe($.sourcemaps.write('./'))
+			.pipe(gulp.dest(config.src + config.tmp));
+
+	}
+
+});
+
+/**
  *	Validation styles task
  *	@extends sass, less, styles
  *	@desc Validate styles with csslint
  *	@return
  */
 
-gulp.task('watch:lintstyles', ['watch:sass', 'watch:less', 'watch:styles'], function() {
+gulp.task('watch:lintstyles', ['watch:sass', 'watch:less', 'watch:stylus', 'watch:styles'], function() {
 
 	return gulp.src(config.src + config.tmp + '/**/*.css')
 		.pipe($.csslint('.csslintrc'))
@@ -235,7 +256,7 @@ gulp.task('watch:inject', ['watch:wiredep', 'watch:jade', 'watch:lintstyles'], f
 gulp.task('watch', ['watch:inject', 'watch:sync'], function() {
 
 	if(config.folder.styles && config.css) {
-		gulp.watch(config.src + config.folder.styles + '/**/*.{css,scss,less}', ['watch:inject']);
+		gulp.watch(config.src + config.folder.styles + '/**/*.{css,scss,less,styl}', ['watch:inject']);
 	}
 
 	if(config.folder.jade) {

@@ -49,7 +49,7 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 				type: 'list',
 				name: 'styles',
 				message: 'What css preprocessor would you use?',
-				choices: ['sass', 'less', 'any'],
+				choices: ['sass', 'stylus', 'less', 'any'],
 				default: 'any'
 			},
 			{
