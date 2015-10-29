@@ -305,7 +305,7 @@ gulp.task('build', ['build:copy', 'build:fonts', 'build:images', 'build:assets']
 		.pipe($.inject(gulp.src(config.dist + 'css/**/*.css', { read: true }), { relative: true }))
 		.pipe($.inject(gulp.src(config.dist + 'scripts/**/*.js', { read: true }), { relative: true }))
 		.pipe($.removeCode({ build: true }))
-		.pipe($.replace('.' + config.dist, ''))
+		.pipe($.if($.util.env.abspaths, $.replace('.' + config.dist, '/'), $.replace('.' + config.dist, '')))
 		.pipe($.minifyHtml({
 			comments: false,
 			empty: false,

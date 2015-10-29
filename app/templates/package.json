@@ -36,6 +36,7 @@
     "gulp-sourcemaps": "^1.5.2",<% if(yeomify_styles == 'stylus') { %>
     "gulp-stylus": "^2.0.6",<% } %>
     "gulp-uglify": "^1.0.1",
+    "gulp-util": "^3.0.7",
     "gulp-useref": "^1.1.2",
     "require-dir": "^0.1.0",
     "wiredep": "^1.8.6"
