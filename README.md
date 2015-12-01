@@ -62,6 +62,7 @@ Also, you can change the gulp options in `config.js` file.
 
 ### Release History
 
+* 1.1.2 — Added `.idea` folder to `.gitignore`.
 * 1.1.1 — Updated csslint validator options.
 * 1.1.0 — Added stylus preprocessor, added `--abspaths` parameter to `build` task, updated less structure folder.
 * 1.0.6 — Validator options as external files, updated documentation.
