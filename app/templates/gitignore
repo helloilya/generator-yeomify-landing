@@ -4,6 +4,7 @@ node_modules
 bower_components
 
 .tmp
+.idea
 .sass-cache
 
 *.com

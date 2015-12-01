@@ -1,5 +1,7 @@
 node_modules
 
+.idea
+
 *.com
 *.class
 *.dll
@@ -20,6 +22,5 @@ node_modules
 *.psd
 
 .DS_Store
-.idea
 Thumbs.db
 desktop.ini
