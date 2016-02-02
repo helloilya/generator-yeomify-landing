@@ -80,10 +80,11 @@ gulp.task('watch:sass', function() {
 
 		return gulp.src(config.src + config.folder.styles + '/**/*.scss')
 			.pipe($.plumber())
-			.pipe($.rubySass({
-				style: 'nested',
-				check: true
+			.pipe($.sourcemaps.init())
+			.pipe($.sass({
+				outputStyle: 'expanded'
 			}))
+			.pipe($.sourcemaps.write('./'))
 			.pipe(gulp.dest(config.src + config.tmp));
 
 	}

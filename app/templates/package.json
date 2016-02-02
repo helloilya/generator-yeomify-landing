@@ -31,7 +31,7 @@
     "gulp-replace": "^0.4.0",
     "gulp-rev": "^3.0.1",
     "gulp-rimraf": "^0.1.1",<% if(yeomify_styles == 'sass') { %>
-    "gulp-ruby-sass": "^0.7.1",<% } %>
+    "gulp-sass": "^2.1.1",<% } %>
     "gulp-size": "^1.1.0",
     "gulp-sourcemaps": "^1.5.2",<% if(yeomify_styles == 'stylus') { %>
     "gulp-stylus": "^2.0.6",<% } %>

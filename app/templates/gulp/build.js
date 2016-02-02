@@ -164,10 +164,8 @@ gulp.task('build:sass', function() {
 
 		return gulp.src(config.src + config.folder.styles + '/**/*.scss')
 			.pipe($.plumber())
-			.pipe($.rubySass({
-				style: 'compressed',
-				sourcemap: false,
-				check: true
+			.pipe($.sass({
+				style: 'compressed'
 			}))
 			.pipe(gulp.dest(config.tmp))
 			.pipe($.size());
