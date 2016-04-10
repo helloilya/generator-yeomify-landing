@@ -33,7 +33,7 @@ gulp.task('build:watch', function() {
 
 gulp.task('build:clean', function() {
 
-	gulp.src([config.dist, config.tmp])
+	gulp.src([config.dist, config.src + config.tmp])
 		.pipe($.rimraf({ force: true }));
 
 });
@@ -125,7 +125,7 @@ gulp.task('build:styles', function() {
 		return gulp.src(config.src + config.folder.styles + '/**/*.css')
 			.pipe($.plumber())
 			.pipe($.concat('style.css'))
-			.pipe(gulp.dest(config.tmp))
+			.pipe(gulp.dest(config.src + config.tmp))
 			.pipe($.size());
 
 	}
@@ -145,7 +145,7 @@ gulp.task('build:less', function() {
 		return gulp.src(config.src + config.folder.styles + '/style.less')
 			.pipe($.plumber())
 			.pipe($.less())
-			.pipe(gulp.dest(config.tmp))
+			.pipe(gulp.dest(config.src + config.tmp))
 			.pipe($.size());
 
 	}
@@ -167,7 +167,7 @@ gulp.task('build:sass', function() {
 			.pipe($.sass({
 				style: 'compressed'
 			}))
-			.pipe(gulp.dest(config.tmp))
+			.pipe(gulp.dest(config.src + config.tmp))
 			.pipe($.size());
 
 	}
@@ -189,7 +189,7 @@ gulp.task('build:stylus', function() {
 			.pipe($.stylus({
 				compress: true
 			}))
-			.pipe(gulp.dest(config.tmp))
+			.pipe(gulp.dest(config.src + config.tmp))
 			.pipe($.size());
 
 	}
@@ -246,17 +246,33 @@ gulp.task('build:wiredep', ['build:jade'], function() {
 
 gulp.task('build:inject', ['build:styles', 'build:less', 'build:sass', 'build:stylus', 'build:wiredep', 'build:jade'], function() {
 
+	var sources = [
+		config.src + config.tmp + '/**/*.css'
+	];
+
+	if(config.folder.scripts) {
+		sources.push(config.src + config.folder.scripts + '/**/*.js');
+	}
+
+	var transform = {
+		transform: function(filepath, file, i, length, targetFile) {
+
+			var root = config.src.slice(2),
+				targetpath = targetFile.path.slice(targetFile.path.indexOf(root) + root.length);
+
+			filepath = filepath.slice(filepath.slice(1).indexOf('/') + 2);
+
+			if(targetpath.indexOf('/') + 1) {
+				filepath = '../' + filepath;
+			}
+
+			return $.inject.transform.apply($.inject.transform, [filepath, file, i, length, targetFile]);
+
+		}
+	};
+
 	return gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])
-		.pipe($.inject(gulp.src(config.src + config.folder.scripts + '/**/*.js'), {
-			starttag: '<!-- inject:js -->',
-			addRootSlash: false,
-			addPrefix: '..'
-		}))
-		.pipe($.inject(gulp.src(config.tmp + '/**/*.css'), {
-			starttag: '<!-- inject:css -->',
-			addRootSlash: false,
-			addPrefix: '..'
-		}))
+		.pipe($.inject(gulp.src(sources), transform))
 		.pipe(gulp.dest(config.src));
 
 });
