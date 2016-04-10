@@ -62,6 +62,7 @@ Also, you can change the gulp options in `config.js` file.
 
 ### Release History
 
+* 1.2.1 — Fixed bug with incorrect paths in `app` folder after run the `build` task, added default font file for css.
 * 1.2.0 — Replaced `gulp-ruby-sass` to `gulp-sass`.
 * 1.1.2 — Added `.idea` folder to `.gitignore`.
 * 1.1.1 — Updated csslint validator options.
