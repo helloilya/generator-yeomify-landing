@@ -113,14 +113,14 @@ gulp.task('build:images', function() {
 });
 
 /**
- *	Styles task
+ *	Css task
  *	@desc Concatenate css and copy file to temp folder
  *	@return
  */
 
-gulp.task('build:styles', function() {
+gulp.task('build:css', function() {
 
-	if(config.folder.styles && config.css === 'styles') {
+	if(config.folder.styles && config.csstype === 'css') {
 
 		return gulp.src(config.src + config.folder.styles + '/**/*.css')
 			.pipe($.plumber())
@@ -140,7 +140,7 @@ gulp.task('build:styles', function() {
 
 gulp.task('build:less', function() {
 
-	if(config.folder.styles && config.css === 'less') {
+	if(config.folder.styles && config.csstype === 'less') {
 
 		return gulp.src(config.src + config.folder.styles + '/style.less')
 			.pipe($.plumber())
@@ -160,7 +160,7 @@ gulp.task('build:less', function() {
 
 gulp.task('build:sass', function() {
 
-	if(config.folder.styles && config.css === 'sass') {
+	if(config.folder.styles && config.csstype === 'sass') {
 
 		return gulp.src(config.src + config.folder.styles + '/**/*.scss')
 			.pipe($.plumber())
@@ -182,7 +182,7 @@ gulp.task('build:sass', function() {
 
 gulp.task('build:stylus', function() {
 
-	if(config.folder.styles && config.css === 'stylus') {
+	if(config.folder.styles && config.csstype === 'stylus') {
 
 		return gulp.src(config.src + config.folder.styles + '/style.styl')
 			.pipe($.plumber())
@@ -239,12 +239,12 @@ gulp.task('build:wiredep', ['build:jade'], function() {
 
 /**
  *	Inject task
- *	@extends styles, less, sass, wiredep
+ *	@extends css, less, sass, stylus, wiredep, jade
  *	@desc Inject js and css files to html
  *	@return
  */
 
-gulp.task('build:inject', ['build:styles', 'build:less', 'build:sass', 'build:stylus', 'build:wiredep', 'build:jade'], function() {
+gulp.task('build:inject', ['build:css', 'build:less', 'build:sass', 'build:stylus', 'build:wiredep', 'build:jade'], function() {
 
 	var sources = [
 		config.src + config.tmp + '/**/*.css'

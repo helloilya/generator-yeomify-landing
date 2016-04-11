@@ -27,14 +27,14 @@ gulp.task('watch:sync', function() {
 });
 
 /**
- *	Styles task
+ *	Css task
  *	@desc Concatenate css, copy file to temp folder
  *	@return
  */
 
-gulp.task('watch:styles', function() {
+gulp.task('watch:css', function() {
 
-	if(config.folder.styles && config.css === 'styles') {
+	if(config.folder.styles && config.csstype === 'css') {
 
 		return gulp.src(config.src + config.folder.styles + '/**/*.css')
 			.pipe($.plumber())
@@ -55,7 +55,7 @@ gulp.task('watch:styles', function() {
 
 gulp.task('watch:less', function() {
 
-	if(config.folder.styles && config.css === 'less') {
+	if(config.folder.styles && config.csstype === 'less') {
 
 		return gulp.src(config.src + config.folder.styles + '/style.less')
 			.pipe($.plumber())
@@ -76,7 +76,7 @@ gulp.task('watch:less', function() {
 
 gulp.task('watch:sass', function() {
 
-	if(config.folder.styles && config.css === 'sass') {
+	if(config.folder.styles && config.csstype === 'sass') {
 
 		return gulp.src(config.src + config.folder.styles + '/**/*.scss')
 			.pipe($.plumber())
@@ -99,7 +99,7 @@ gulp.task('watch:sass', function() {
 
 gulp.task('watch:stylus', function() {
 
-	if(config.folder.styles && config.css === 'stylus') {
+	if(config.folder.styles && config.csstype === 'stylus') {
 
 		return gulp.src(config.src + config.folder.styles + '/style.styl')
 			.pipe($.plumber())
@@ -114,12 +114,12 @@ gulp.task('watch:stylus', function() {
 
 /**
  *	Validation styles task
- *	@extends sass, less, styles
+ *	@extends sass, less, css
  *	@desc Validate styles with csslint
  *	@return
  */
 
-gulp.task('watch:lintstyles', ['watch:sass', 'watch:less', 'watch:stylus', 'watch:styles'], function() {
+gulp.task('watch:lintstyles', ['watch:sass', 'watch:less', 'watch:stylus', 'watch:css'], function() {
 
 	return gulp.src(config.src + config.tmp + '/**/*.css')
 		.pipe($.csslint('.csslintrc'))
@@ -256,7 +256,7 @@ gulp.task('watch:inject', ['watch:wiredep', 'watch:jade', 'watch:lintstyles'], f
 
 gulp.task('watch', ['watch:inject', 'watch:sync'], function() {
 
-	if(config.folder.styles && config.css) {
+	if(config.folder.styles && config.csstype) {
 		gulp.watch(config.src + config.folder.styles + '/**/*.{css,scss,less,styl}', ['watch:inject']);
 	}
 

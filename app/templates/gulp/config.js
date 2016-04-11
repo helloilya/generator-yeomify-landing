@@ -19,9 +19,9 @@ module.exports = {
 
 	rev: false,
 
-	// Style type [styles, less, sass, stylus]. Selected when generating project
+	// Style type [css, less, sass, stylus]. Selected when generating project
 
-	css: '<%= yeomify_styles %>',
+	csstype: '<%= yeomify_styles %>',
 
 	// Path to project folders [folder name or false or '']
 
