@@ -49,8 +49,8 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 				type: 'list',
 				name: 'styles',
 				message: 'What css preprocessor would you use?',
-				choices: ['sass', 'stylus', 'less', 'any'],
-				default: 'any'
+				choices: ['sass', 'stylus', 'less', 'no'],
+				default: 'no'
 			},
 			{
 				type: 'confirm',
@@ -93,7 +93,7 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 	gulp: function() {
 
 		if(this.questions.jade) { this.questions.jade = "'jade'"; }
-		if(this.questions.styles == 'any') { this.questions.styles = 'styles'; }
+		if(this.questions.styles == 'no') { this.questions.styles = 'css'; }
 		if(this.questions.libs) { this.questions.libs = "'bower_components'"; }
 
 		var context = {
