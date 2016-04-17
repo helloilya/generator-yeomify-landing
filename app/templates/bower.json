@@ -2,8 +2,8 @@
   "name": "<%= yeomify_name %>",
   "version": "0.0.0",
   "description": "<%= yeomify_desc %>",
-  "dependencies": {<% if(yeomify_libs) { %>
-    "jquery": "~2.2.3",
+  "dependencies": {
+    "jquery": "~2.2.3"<% if(yeomify_libs) { %>,
     "modernizr": "~3.3.1",
     "normalize-css": "~4.1.1"
   <% } %>}

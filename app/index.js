@@ -49,7 +49,7 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 				type: 'list',
 				name: 'styles',
 				message: 'What css preprocessor would you use?',
-				choices: ['sass', 'stylus', 'less', 'no'],
+				choices: ['less', 'sass', 'stylus', 'no'],
 				default: 'no'
 			},
 			{
@@ -84,9 +84,25 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 
 		// Validators
 
-		this.copy('csslintrc', '.csslintrc');
 		this.copy('htmlhintrc', '.htmlhintrc');
 		this.copy('jshintrc', '.jshintrc');
+
+		// Linters
+
+		switch(this.questions.styles) {
+			case 'less':
+				this.copy('lesshintrc', '.lesshintrc');
+				break;
+			case 'sass':
+				this.copy('sass-lint.yml', '.sass-lint.yml');
+				break;
+			case 'stylus':
+				this.copy('stylintrc', '.stylintrc');
+				break;
+			default:
+				this.copy('csslintrc', '.csslintrc');
+				break;
+		}
 
 	},
 
@@ -94,7 +110,6 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 
 		if(this.questions.jade) { this.questions.jade = "'jade'"; }
 		if(this.questions.styles == 'no') { this.questions.styles = 'css'; }
-		if(this.questions.libs) { this.questions.libs = "'bower_components'"; }
 
 		var context = {
 			yeomify_jade: this.questions.jade,
