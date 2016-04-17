@@ -162,7 +162,7 @@ gulp.task('build:sass', function() {
 
 	if(config.folder.styles && config.csstype === 'sass') {
 
-		return gulp.src(config.src + config.folder.styles + '/**/*.scss')
+		return gulp.src(config.src + config.folder.styles + '/style.scss')
 			.pipe($.plumber())
 			.pipe($.sass({
 				style: 'compressed'
