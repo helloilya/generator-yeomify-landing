@@ -22,7 +22,7 @@ Then, create a folder for the generator and unfold it:
 $ yo yeomify-landing
 ```
 
-During installation you can install [jade](http://jade-lang.com) as template engine and [sass](http://sass-lang.com), [less](http://lesscss.org) or [stylus](https://learnboost.github.io/stylus/) as css preprocessor.
+During installation you can install [jade](http://jade-lang.com) as template engine and [less](http://lesscss.org), [sass](http://sass-lang.com) or [stylus](https://learnboost.github.io/stylus/) as css preprocessor.
 
 ![Yeomify landing generator](http://fedotov.work/yeomify/yeomify-bash.png)
 
@@ -60,14 +60,19 @@ Use the following commands for development:
 
 Also, you can change the gulp options in `config.js` file.
 
+### Linters
+
+Each preprocessor uses linter. The documentation for linters rules: [css](https://github.com/CSSLint/csslint/wiki/Rules-by-ID), [less](https://github.com/lesshint/lesshint/blob/master/lib/linters/README.md), [sass](https://github.com/sasstools/sass-lint/tree/master/docs/rules) and [stylus](https://github.com/rossPatton/stylint#options).
+
 ### Release History
 
+* 1.3.0 — Added `less`, `sass` and `stylus` linters, updated styles files structure, updated bower dependencies.
 * 1.2.2 — Renamed config option from `css` to `csstype`, renamed folder from `styles` to `css`, updated names of tasks.
 * 1.2.1 — Fixed bug with incorrect paths in `app` folder after run the `build` task, added default font file for css.
 * 1.2.0 — Replaced `gulp-ruby-sass` to `gulp-sass`.
 * 1.1.2 — Added `.idea` folder to `.gitignore`.
 * 1.1.1 — Updated csslint validator options.
-* 1.1.0 — Added stylus preprocessor, added `--abspaths` parameter to `build` task, updated less structure folder.
+* 1.1.0 — Added `stylus` preprocessor, added `--abspaths` parameter to `build` task, updated less structure folder.
 * 1.0.6 — Validator options as external files, updated documentation.
 * 1.0.5 — Bug fixed in `inject` task, update `gulp-minify-html` config.
 * 1.0.4 — Added html5doctor reset stylesheet, bug fixed in watch tasks, added `pictures` folder to config.
