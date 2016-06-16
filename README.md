@@ -66,6 +66,7 @@ Each preprocessor uses linter. The documentation for linters rules: [css](https:
 
 ### Release History
 
+* 1.3.1 — Fixed bug where the page was reloaded without insert styles in `jade` file, optimized `watch` task.
 * 1.3.0 — Added `less`, `sass` and `stylus` linters, updated styles files structure, updated bower dependencies.
 * 1.2.2 — Renamed config option from `css` to `csstype`, renamed folder from `styles` to `css`, updated names of tasks.
 * 1.2.1 — Fixed bug with incorrect paths in `app` folder after run the `build` task, added default font file for css.
@@ -75,7 +76,7 @@ Each preprocessor uses linter. The documentation for linters rules: [css](https:
 * 1.1.0 — Added `stylus` preprocessor, added `--abspaths` parameter to `build` task, updated less structure folder.
 * 1.0.6 — Validator options as external files, updated documentation.
 * 1.0.5 — Bug fixed in `inject` task, update `gulp-minify-html` config.
-* 1.0.4 — Added html5doctor reset stylesheet, bug fixed in watch tasks, added `pictures` folder to config.
+* 1.0.4 — Added html5doctor reset stylesheet, bug fixed in `watch` tasks, added `pictures` folder to config.
 * 1.0.3 — Added sourcemaps, bug fixed with `.gitignore`.
 * 1.0.2 — Added yeoman generator support.
 * 1.0.1 — Bugs fixed.
