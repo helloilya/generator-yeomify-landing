@@ -9,6 +9,32 @@ var fs = require('fs'),
 var $ = require('gulp-load-plugins')();
 
 /**
+ *	Transform paths function
+ *	@desc Update paths before insert css and js into html file
+ */
+
+function transformPaths() {
+
+	return {
+		transform: function(filepath, file, i, length, targetFile) {
+
+			var root = config.src.slice(2),
+				targetpath = targetFile.path.slice(targetFile.path.indexOf(root) + root.length);
+
+			filepath = filepath.slice(filepath.slice(1).indexOf('/') + 2);
+
+			if(targetpath.indexOf('/') + 1) {
+				filepath = '../' + filepath;
+			}
+
+			return $.inject.transform.apply($.inject.transform, [filepath, file, i, length, targetFile]);
+
+		}
+	};
+
+}
+
+/**
  *	BrowserSync task
  *	@desc Init BrowserSync
  */
@@ -126,6 +152,22 @@ gulp.task('watch:stylus', function() {
 });
 
 /**
+ *	Reload styles task
+ *	@extends css, sass, less, stylus
+ *	@desc Compile styles, run sync reload
+ */
+
+gulp.task('watch:reloadstyles', ['watch:css', 'watch:sass', 'watch:less', 'watch:stylus'], function() {
+
+	gulp.src(config.src + config.tmp + '/**/*.css')
+		.pipe($.plumber())
+		.pipe(sync.reload({
+			stream: true
+		}));
+
+});
+
+/**
  *	Jade task
  *	@desc Compile jade templates
  *	@return
@@ -141,6 +183,31 @@ gulp.task('watch:jade', function() {
 			.pipe(gulp.dest(config.src));
 
 	}
+
+});
+
+/**
+ *	Reload jade task
+ *	@extends wiredep
+ *	@desc Compile jade, insert css and js, run sync reload
+ */
+
+gulp.task('watch:reloadjade', ['watch:wiredep'], function() {
+
+	var sources = [
+		config.src + config.tmp + '/**/*.css'
+	];
+
+	if(config.folder.scripts) {
+		sources.push(config.src + config.folder.scripts + '/**/*.js');
+	}
+
+	return gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])
+		.pipe($.inject(gulp.src(sources), transformPaths()))
+		.pipe(gulp.dest(config.src))
+		.pipe(sync.reload({
+			stream: true
+		}));
 
 });
 
@@ -172,18 +239,14 @@ gulp.task('watch:wiredep', ['watch:jade'], function() {
 
 gulp.task('watch:scripts', function() {
 
-	if(config.folder.scripts) {
-
-		gulp.src(config.src + config.folder.scripts + '/**/*.js')
-			.pipe($.plumber())
-			.pipe($.jshint('.jshintrc'))
-			.pipe($.jshint.reporter())
-			.pipe($.jsvalidate())
-			.pipe(sync.reload({
-				stream: true
-			}));
-
-	}
+	gulp.src(config.src + config.folder.scripts + '/**/*.js')
+		.pipe($.plumber())
+		.pipe($.jshint('.jshintrc'))
+		.pipe($.jshint.reporter())
+		.pipe($.jsvalidate())
+		.pipe(sync.reload({
+			stream: true
+		}));
 
 });
 
@@ -206,11 +269,11 @@ gulp.task('watch:html', function() {
 
 /**
  *	Inject task
- *	@extends wiredep, css, sass, less, stylus, jade
- *	@desc Inject js and css files in html
+ *	@extends wiredep, css, sass, less, stylus
+ *	@desc Insert js and css files in html
  */
 
-gulp.task('watch:inject', ['watch:wiredep', 'watch:jade', 'watch:css', 'watch:sass', 'watch:less', 'watch:stylus'], function() {
+gulp.task('watch:inject', ['watch:wiredep', 'watch:css', 'watch:sass', 'watch:less', 'watch:stylus'], function() {
 
 	var sources = [
 		config.src + config.tmp + '/**/*.css'
@@ -220,29 +283,9 @@ gulp.task('watch:inject', ['watch:wiredep', 'watch:jade', 'watch:css', 'watch:sa
 		sources.push(config.src + config.folder.scripts + '/**/*.js');
 	}
 
-	var transform = {
-		transform: function(filepath, file, i, length, targetFile) {
-
-			var root = config.src.slice(2),
-				targetpath = targetFile.path.slice(targetFile.path.indexOf(root) + root.length);
-
-			filepath = filepath.slice(filepath.slice(1).indexOf('/') + 2);
-
-			if(targetpath.indexOf('/') + 1) {
-				filepath = '../' + filepath;
-			}
-
-			return $.inject.transform.apply($.inject.transform, [filepath, file, i, length, targetFile]);
-
-		}
-	};
-
 	return gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])
-		.pipe($.inject(gulp.src(sources), transform))
-		.pipe(gulp.dest(config.src))
-		.pipe(sync.reload(
-			{ stream: true }
-		));
+		.pipe($.inject(gulp.src(sources), transformPaths()))
+		.pipe(gulp.dest(config.src));
 
 });
 
@@ -255,17 +298,19 @@ gulp.task('watch:inject', ['watch:wiredep', 'watch:jade', 'watch:css', 'watch:sa
 gulp.task('watch', ['watch:inject', 'watch:sync'], function() {
 
 	if(config.folder.styles && config.csstype) {
-		gulp.watch(config.src + config.folder.styles + '/**/*.{css,scss,less,styl}', ['watch:inject']);
+		gulp.watch(config.src + config.folder.styles + '/**/*.{css,scss,less,styl}', ['watch:reloadstyles']);
 	}
 
 	if(config.folder.jade) {
-		gulp.watch(config.src + config.folder.jade + '/**/*.jade', ['watch:inject']);
+		gulp.watch(config.src + config.folder.jade + '/**/*.jade', ['watch:reloadjade']);
 	}
 
 	if(config.folder.scripts) {
 		gulp.watch(config.src + config.folder.scripts + '/**/*.js', ['watch:scripts']);
 	}
 
-	gulp.watch([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'], ['watch:html']);
+	if(!config.folder.jade) {
+		gulp.watch([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'], ['watch:html']);
+	}
 
 });
