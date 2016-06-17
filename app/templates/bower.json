@@ -4,7 +4,7 @@
   "description": "<%= yeomify_desc %>",
   "dependencies": {
     "jquery": "~2.2.3"<% if(yeomify_libs) { %>,
-    "modernizr": "~3.3.1",
+    "modernizr": "~2.8.3",
     "normalize-css": "~4.1.1"
   <% } %>}
 }
