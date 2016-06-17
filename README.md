@@ -66,6 +66,7 @@ Each preprocessor uses linter. The documentation for linters rules: [css](https:
 
 ### Release History
 
+* 1.3.2 — Fixed issue #4, updated modernizr version.
 * 1.3.1 — Fixed bug where the page was reloaded without insert styles in `jade` file, optimized `watch` task.
 * 1.3.0 — Added `less`, `sass` and `stylus` linters, updated styles files structure, updated bower dependencies.
 * 1.2.2 — Renamed config option from `css` to `csstype`, renamed folder from `styles` to `css`, updated names of tasks.
