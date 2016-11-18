@@ -11,6 +11,7 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 20px;
+	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
 }
