@@ -22,7 +22,7 @@ Then, create a folder for the generator and unfold it:
 $ yo yeomify-landing
 ```
 
-During installation you can install [jade](http://jade-lang.com) as template engine and [less](http://lesscss.org), [sass](http://sass-lang.com) or [stylus](https://learnboost.github.io/stylus/) as css preprocessor.
+During installation you can install [pug](https://pugjs.org) as template engine and [less](http://lesscss.org), [sass](http://sass-lang.com) or [stylus](https://learnboost.github.io/stylus/) as css preprocessor.
 
 ![Yeomify landing generator](http://fedotov.work/yeomify/yeomify-bash.png)
 
@@ -35,7 +35,7 @@ After installation you'll have the following directory structure:
 ```
 ├── app
 │   ├── css
-│   ├── jade
+│   ├── pug
 │   ├── scripts
 │   └── index.html
 ├── gulp
@@ -62,10 +62,11 @@ Also, you can change the gulp options in `config.js` file.
 
 ### Linters
 
-Each preprocessor uses linter. The documentation for linters rules: [css](https://github.com/CSSLint/csslint/wiki/Rules-by-ID), [less](https://github.com/lesshint/lesshint/blob/master/lib/linters/README.md), [sass](https://github.com/sasstools/sass-lint/tree/master/docs/rules) and [stylus](https://github.com/rossPatton/stylint#options).
+Each template engine and preprocessor uses linter. The documentation for linters rules: [pug](https://github.com/pugjs/pug-lint/blob/master/docs/rules.md), [css](https://github.com/CSSLint/csslint/wiki/Rules-by-ID), [less](https://github.com/lesshint/lesshint/blob/master/lib/linters/README.md), [sass](https://github.com/sasstools/sass-lint/tree/master/docs/rules) and [stylus](https://github.com/rossPatton/stylint#options).
 
 ### Release History
 
+* 1.4.0 — Replaced `jade` plugin to `pug`, added `pug` linter, updated `body` styles.
 * 1.3.2 — Fixed issue #4, updated modernizr version.
 * 1.3.1 — Fixed bug where the page was reloaded without insert styles in `jade` file, optimized `watch` task.
 * 1.3.0 — Added `less`, `sass` and `stylus` linters, updated styles files structure, updated bower dependencies.

@@ -1,6 +1,6 @@
 {
   "name": "generator-yeomify-landing",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Yeoman generator for landing project powered by Gulp",
   "author": "Ilya Fedotov <ilya@fedotov.me>",
   "homepage": "https://github.com/helloilya/generator-yeomify-landing",
@@ -30,6 +30,7 @@
     "gulp",
     "html",
     "jade",
+    "pug",
     "landing",
     "less",
     "sass",
