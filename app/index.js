@@ -41,8 +41,8 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 			},
 			{
 				type: 'confirm',
-				name: 'jade',
-				message: 'Would you install jade as template engine?',
+				name: 'pug',
+				message: 'Would you install pug as template engine?',
 				default: false
 			},
 			{
@@ -65,7 +65,7 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 			this.questions = {
 				name: props.name,
 				desc: props.desc,
-				jade: props.jade,
+				pug: props.pug,
 				styles: props.styles,
 				libs: props.libs
 			};
@@ -108,11 +108,11 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 
 	gulp: function() {
 
-		if(this.questions.jade) { this.questions.jade = "'jade'"; }
+		if(this.questions.pug) { this.questions.pug = "'pug'"; }
 		if(this.questions.styles == 'no') { this.questions.styles = 'css'; }
 
 		var context = {
-			yeomify_jade: this.questions.jade,
+			yeomify_pug: this.questions.pug,
 			yeomify_styles: this.questions.styles,
 			yeomify_libs: this.questions.libs
 		};
@@ -129,7 +129,7 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 		var context = {
 			yeomify_name: this.questions.name,
 			yeomify_desc: this.questions.desc,
-			yeomify_jade: this.questions.jade,
+			yeomify_pug: this.questions.pug,
 			yeomify_styles: this.questions.styles,
 			yeomify_libs: this.questions.libs
 		};
@@ -146,8 +146,9 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 		this.copy('landing/favicon.ico', 'app/favicon.ico');
 		this.copy('landing/index.html', 'app/index.html');
 
-		if(this.questions.jade) {
-			this.directory('landing/jade', 'app/jade');
+		if(this.questions.pug) {
+			this.directory('landing/pug', 'app/pug');
+			this.copy('puglintrc', '.puglintrc');
 		}
 
 		this.directory('landing/' + this.questions.styles, 'app/' + this.questions.styles);
