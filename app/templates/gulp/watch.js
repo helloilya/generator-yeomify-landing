@@ -168,18 +168,19 @@ gulp.task('watch:reloadstyles', ['watch:css', 'watch:sass', 'watch:less', 'watch
 });
 
 /**
- *	Jade task
- *	@desc Compile jade templates
+ *	Pug task
+ *	@desc Compile pug templates
  *	@return
  */
 
-gulp.task('watch:jade', function() {
+gulp.task('watch:pug', function() {
 
-	if(config.folder.jade) {
+	if(config.folder.pug) {
 
-		return gulp.src(config.src + config.folder.jade + '/**/[^_]*.jade')
+		return gulp.src(config.src + config.folder.pug + '/**/[^_]*.pug')
 			.pipe($.plumber())
-			.pipe($.jade({ pretty: '\t' }))
+			.pipe($.pugLint('.puglintrc'))
+			.pipe($.pug({ pretty: '\t' }))
 			.pipe(gulp.dest(config.src));
 
 	}
@@ -187,12 +188,12 @@ gulp.task('watch:jade', function() {
 });
 
 /**
- *	Reload jade task
+ *	Reload pug task
  *	@extends wiredep
- *	@desc Compile jade, insert css and js, run sync reload
+ *	@desc Compile pug, insert css and js, run sync reload
  */
 
-gulp.task('watch:reloadjade', ['watch:wiredep'], function() {
+gulp.task('watch:reloadpug', ['watch:wiredep'], function() {
 
 	var sources = [
 		config.src + config.tmp + '/**/*.css'
@@ -213,12 +214,12 @@ gulp.task('watch:reloadjade', ['watch:wiredep'], function() {
 
 /**
  *	Bower task
- *	@extends jade
+ *	@extends pug
  *	@desc Inject bower dependencies in html
  *	@return
  */
 
-gulp.task('watch:wiredep', ['watch:jade'], function() {
+gulp.task('watch:wiredep', ['watch:pug'], function() {
 
 	if(config.folder.vendors && fs.existsSync(config.src + config.folder.vendors)) {
 
@@ -301,15 +302,15 @@ gulp.task('watch', ['watch:inject', 'watch:sync'], function() {
 		gulp.watch(config.src + config.folder.styles + '/**/*.{css,scss,less,styl}', ['watch:reloadstyles']);
 	}
 
-	if(config.folder.jade) {
-		gulp.watch(config.src + config.folder.jade + '/**/*.jade', ['watch:reloadjade']);
+	if(config.folder.pug) {
+		gulp.watch(config.src + config.folder.pug + '/**/*.pug', ['watch:reloadpug']);
 	}
 
 	if(config.folder.scripts) {
 		gulp.watch(config.src + config.folder.scripts + '/**/*.js', ['watch:scripts']);
 	}
 
-	if(!config.folder.jade) {
+	if(!config.folder.pug) {
 		gulp.watch([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'], ['watch:html']);
 	}
 

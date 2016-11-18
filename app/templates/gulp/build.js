@@ -197,18 +197,18 @@ gulp.task('build:stylus', function() {
 });
 
 /**
- *	Jade task
- *	@desc Compile jade templates
+ *	Pug task
+ *	@desc Compile pug templates
  *	@return
  */
 
-gulp.task('build:jade', function() {
+gulp.task('build:pug', function() {
 
-	if(config.folder.jade) {
+	if(config.folder.pug) {
 
-		return gulp.src(config.src + config.folder.jade + '/**/[^_]*.jade')
+		return gulp.src(config.src + config.folder.pug + '/**/[^_]*.pug')
 			.pipe($.plumber())
-			.pipe($.jade({ pretty: '\t' }))
+			.pipe($.pug({ pretty: '\t' }))
 			.pipe(gulp.dest(config.src))
 			.pipe($.size());
 
@@ -218,12 +218,12 @@ gulp.task('build:jade', function() {
 
 /**
  *	Bower task
- *	@extends jade
+ *	@extends pug
  *	@desc Inject bower dependencies to html
  *	@return
  */
 
-gulp.task('build:wiredep', ['build:jade'], function() {
+gulp.task('build:wiredep', ['build:pug'], function() {
 
 	if(config.folder.vendors && fs.existsSync(config.src + config.folder.vendors)) {
 
@@ -239,12 +239,12 @@ gulp.task('build:wiredep', ['build:jade'], function() {
 
 /**
  *	Inject task
- *	@extends css, less, sass, stylus, wiredep, jade
+ *	@extends css, less, sass, stylus, wiredep, pug
  *	@desc Inject js and css files to html
  *	@return
  */
 
-gulp.task('build:inject', ['build:css', 'build:less', 'build:sass', 'build:stylus', 'build:wiredep', 'build:jade'], function() {
+gulp.task('build:inject', ['build:css', 'build:less', 'build:sass', 'build:stylus', 'build:wiredep', 'build:pug'], function() {
 
 	var sources = [
 		config.src + config.tmp + '/**/*.css'

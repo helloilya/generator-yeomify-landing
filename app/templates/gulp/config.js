@@ -30,7 +30,7 @@ module.exports = {
 		icons: '',
 		images: '',
 		pictures: '',
-		jade: <%= yeomify_jade %>,
+		pug: <%= yeomify_pug %>,
 		styles: '<%= yeomify_styles %>',
 		scripts: 'scripts',
 		vendors: 'bower_components'

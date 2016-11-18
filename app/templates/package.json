@@ -15,8 +15,7 @@
     "gulp-if": "^1.2.5",
     "gulp-ignore": "^1.2.1",
     "gulp-imagemin": "^1.1.0",
-    "gulp-inject": "^1.0.2",<% if(yeomify_jade) { %>
-    "gulp-jade": "^0.11.0",<% } %>
+    "gulp-inject": "^1.0.2",
     "gulp-jshint": "^1.8.5",
     "gulp-jsvalidate": "^1.0.1",<% if(yeomify_styles == 'less') { %>
     "gulp-less": "^3.0.3",
@@ -25,7 +24,9 @@
     "gulp-minify-html": "^0.1.6",
     "gulp-notify": "^2.0.0",
     "gulp-order": "^1.1.1",
-    "gulp-plumber": "^0.6.6",
+    "gulp-plumber": "^0.6.6",<% if(yeomify_pug) { %>
+    "gulp-pug": "^3.1.0",
+    "gulp-pug-lint": "^0.1.6",<% } %>
     "gulp-remove-code": "^1.0.0",
     "gulp-remove-files": "0.0.3",
     "gulp-rename": "^1.2.0",

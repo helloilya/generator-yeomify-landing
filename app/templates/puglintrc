@@ -1,0 +1,16 @@
+{
+	"disallowLegacyMixinCall": true,
+	"disallowMultipleLineBreaks": true,
+	"disallowSpacesInsideAttributeBrackets": true,
+	"requireClassLiteralsBeforeAttributes": true,
+	"requireClassLiteralsBeforeIdLiterals": true,
+	"requireIdLiteralsBeforeAttributes": true,
+	"requireLowerCaseAttributes": true,
+	"requireLowerCaseTags": true,
+	"requireSpaceAfterCodeOperator": true,
+	"requireStrictEqualityOperators": true,
+	"validateAttributeSeparator": ", ",
+	"validateDivTags": true,
+	"validateExtensions": true,
+	"validateSelfClosingTags": true
+}
