@@ -331,8 +331,9 @@ gulp.task('build', ['build:copy', 'build:fonts', 'build:images', 'build:assets']
 		.pipe($.notify({
 			title: 'Gulp',
 			message: 'Build is ready',
-			sound: "Pop",
-			icon: false
+			sound: 'Pop',
+			icon: false,
+			onLast: true
 		}))
 		.pipe(gulp.dest(config.dist))
 		.pipe($.size());
