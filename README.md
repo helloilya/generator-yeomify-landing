@@ -66,6 +66,7 @@ Each template engine and preprocessor uses linter. The documentation for linters
 
 ### Release History
 
+* 1.4.1 — Added `onLast` parameter for `gulp-notify` config, updated `jslinter` config.
 * 1.4.0 — Replaced `jade` plugin to `pug`, added `pug` linter, updated `body` styles.
 * 1.3.2 — Fixed issue #4, updated modernizr version.
 * 1.3.1 — Fixed bug where the page was reloaded without insert styles in `jade` file, optimized `watch` task.
