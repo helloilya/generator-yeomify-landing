@@ -320,13 +320,11 @@ gulp.task('build', ['build:copy', 'build:fonts', 'build:images', 'build:assets']
 		.pipe($.inject(gulp.src(config.dist + 'scripts/**/*.js', { read: true }), { relative: true }))
 		.pipe($.removeCode({ build: true }))
 		.pipe($.if($.util.env.abspaths, $.replace('.' + config.dist, '/'), $.replace('.' + config.dist, '')))
-		.pipe($.minifyHtml({
-			comments: false,
-			empty: false,
-			conditionals: true,
-			cdata: true,
-			quotes: true,
-			spare: true
+		.pipe($.htmlmin({
+			removeComments: true,
+			collapseWhitespace: true,
+			removeStyleLinkTypeAttributes: true,
+			removeScriptTypeAttributes: true
 		}))
 		.pipe($.notify({
 			title: 'Gulp',

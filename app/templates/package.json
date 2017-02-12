@@ -12,6 +12,7 @@
     "gulp-csso": "^0.2.9",
     "gulp-filter": "^1.0.2",
     "gulp-htmlhint": "0.0.9",
+    "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^1.2.5",
     "gulp-ignore": "^1.2.1",
     "gulp-imagemin": "^1.1.0",
@@ -21,7 +22,6 @@
     "gulp-less": "^3.0.3",
     "gulp-lesshint": "^1.1.0",<% } %>
     "gulp-load-plugins": "^0.8.1",
-    "gulp-minify-html": "^0.1.6",
     "gulp-notify": "^2.0.0",
     "gulp-order": "^1.1.1",
     "gulp-plumber": "^0.6.6",<% if(yeomify_pug) { %>
@@ -32,8 +32,8 @@
     "gulp-rename": "^1.2.0",
     "gulp-replace": "^0.4.0",
     "gulp-rev": "^3.0.1",
-    "gulp-rimraf": "^0.1.1",<% if(yeomify_styles == 'sass') { %>
-    "gulp-sass": "^2.1.1",
+    "gulp-rimraf": "^0.2.1",<% if(yeomify_styles == 'sass') { %>
+    "gulp-sass": "^3.1.0",
     "gulp-sass-lint": "^1.1.1",<% } %>
     "gulp-size": "^1.1.0",
     "gulp-sourcemaps": "^1.5.2",<% if(yeomify_styles == 'stylus') { %>
