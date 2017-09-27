@@ -40,7 +40,7 @@ gulp.task('build:clean', function() {
 
 /**
  *	Copy task
- *	@desc Copy files from root folder
+ *	@desc Copy files and folders from root folder
  *	@return
  */
 
@@ -53,7 +53,7 @@ gulp.task('build:copy', function() {
 		}
 
 		return gulp.src(config.copyfiles)
-			.pipe(gulp.dest(config.dist))
+			.pipe($.copy(config.dist, { prefix: 1 }))
 			.pipe($.size());
 
 	}

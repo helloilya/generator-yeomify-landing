@@ -44,7 +44,7 @@ module.exports = {
 		'Opera < 12'
 	],
 
-	// Files list just for copy
+	// Files and folders list just for copy
 
 	copyfiles: [
 		'favicon.ico'
