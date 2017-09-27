@@ -66,6 +66,7 @@ Each template engine and preprocessor uses linter. The documentation for linters
 
 ### Release History
 
+* 1.5.0 — Added ability to copy folders and contents of them (expanded `copyfiles` parameter in `config.js`).
 * 1.4.2 — Updated gulp dependencies, replaced `gulp-minify-html` to `gulp-htmlmin`, fixed reset files.
 * 1.4.1 — Added `onLast` parameter for `gulp-notify` config, updated `jslinter` config.
 * 1.4.0 — Replaced `jade` plugin to `pug`, added `pug` linter, updated `body` styles.
