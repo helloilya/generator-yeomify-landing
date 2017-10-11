@@ -62,10 +62,11 @@ Also, you can change the gulp options in `config.js` file.
 
 ### Linters
 
-Each template engine and preprocessor uses linter. The documentation for linters rules: [pug](https://github.com/pugjs/pug-lint/blob/master/docs/rules.md), [css](https://github.com/CSSLint/csslint/wiki/Rules-by-ID), [less](https://github.com/lesshint/lesshint/blob/master/lib/linters/README.md), [sass](https://github.com/sasstools/sass-lint/tree/master/docs/rules) and [stylus](https://github.com/rossPatton/stylint#options).
+Each template engine and preprocessor uses a linter. The documentation for linters rules: [pug](https://github.com/pugjs/pug-lint/blob/master/docs/rules.md), [css](https://github.com/CSSLint/csslint/wiki/Rules-by-ID), [less](https://github.com/lesshint/lesshint/blob/master/lib/linters/README.md), [sass](https://github.com/sasstools/sass-lint/tree/master/docs/rules) and [stylus](https://github.com/rossPatton/stylint#options). Javascript uses [jshint](http://jshint.com/docs/options/) and supports ECMAScript 6 syntax. By default, this functionality is disabled, but you can enable it by changing the `es6syntax` flag into your `config.js` file.
 
 ### Release History
 
+* 1.6.0 — Added `babeljs` support, updated javascript linter.
 * 1.5.0 — Added ability to copy folders and contents of them (expanded `copyfiles` parameter in `config.js`).
 * 1.4.2 — Updated gulp dependencies, replaced `gulp-minify-html` to `gulp-htmlmin`, fixed reset files.
 * 1.4.1 — Added `onLast` parameter for `gulp-notify` config, updated `jslinter` config.
