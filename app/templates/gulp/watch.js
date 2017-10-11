@@ -35,6 +35,18 @@ function transformPaths() {
 }
 
 /**
+ *	Return path to scripts folder
+ *	@desc Return correct path to scripts folder base on es6syntax flag
+ */
+
+function getScriptsFolderPath() {
+
+	var path = config.es6syntax ? config.tmp : config.folder.scripts;
+	return config.src + path + '/**/*.js';
+
+}
+
+/**
  *	BrowserSync task
  *	@desc Init BrowserSync
  */
@@ -200,7 +212,7 @@ gulp.task('watch:reloadpug', ['watch:wiredep'], function() {
 	];
 
 	if(config.folder.scripts) {
-		sources.push(config.src + config.folder.scripts + '/**/*.js');
+		sources.push(getScriptsFolderPath());
 	}
 
 	return gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])
@@ -235,19 +247,39 @@ gulp.task('watch:wiredep', ['watch:pug'], function() {
 
 /**
  *	Scripts task
+ *	@extends babeljs
  *	@desc Validate js files
  */
 
-gulp.task('watch:scripts', function() {
+gulp.task('watch:scripts', ['watch:babeljs'], function() {
 
 	gulp.src(config.src + config.folder.scripts + '/**/*.js')
 		.pipe($.plumber())
-		.pipe($.jshint('.jshintrc'))
+		.pipe($.jshint(config.es6syntax ? '.es6hintrc' : '.jshintrc'))
 		.pipe($.jshint.reporter())
-		.pipe($.jsvalidate())
 		.pipe(sync.reload({
 			stream: true
 		}));
+
+});
+
+/**
+ *	Babel task
+ *	@desc Compile js files base on babeljs
+ */
+
+gulp.task('watch:babeljs', function() {
+
+	if(config.folder.scripts && config.es6syntax) {
+
+		gulp.src(config.src + config.folder.scripts + '/**/*.js')
+			.pipe($.plumber())
+			.pipe($.babel({
+				presets: ['env']
+			}))
+			.pipe(gulp.dest(config.src + config.tmp));
+
+	}
 
 });
 
@@ -270,18 +302,18 @@ gulp.task('watch:html', function() {
 
 /**
  *	Inject task
- *	@extends wiredep, css, sass, less, stylus
+ *	@extends wiredep, scripts, css, sass, less, stylus
  *	@desc Insert js and css files in html
  */
 
-gulp.task('watch:inject', ['watch:wiredep', 'watch:css', 'watch:sass', 'watch:less', 'watch:stylus'], function() {
+gulp.task('watch:inject', ['watch:wiredep', 'watch:scripts', 'watch:css', 'watch:sass', 'watch:less', 'watch:stylus'], function() {
 
 	var sources = [
 		config.src + config.tmp + '/**/*.css'
 	];
 
 	if(config.folder.scripts) {
-		sources.push(config.src + config.folder.scripts + '/**/*.js');
+		sources.push(getScriptsFolderPath());
 	}
 
 	return gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])

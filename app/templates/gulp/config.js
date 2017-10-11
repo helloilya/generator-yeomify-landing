@@ -23,6 +23,10 @@ module.exports = {
 
 	csstype: '<%= yeomify_styles %>',
 
+	// Flag which adding support ECMAScript 6 syntax/lint
+
+	es6syntax: false,
+
 	// Path to project folders [folder name or false or '']
 
 	folder: {

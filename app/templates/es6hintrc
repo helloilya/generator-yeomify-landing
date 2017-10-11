@@ -1,12 +1,12 @@
 {
 	"boss": true,
 	"debug": true,
-	"curly": true,
 	"eqeqeq": true,
 	"eqnull": true,
+	"esversion": 6,
 	"expr": true,
-	"noarg": true,
 	"quotmark": "single",
 	"trailing": true,
-	"unused": true
+	"unused": true,
+	"varstmt": true
 }

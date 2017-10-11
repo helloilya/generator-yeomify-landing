@@ -246,12 +246,16 @@ gulp.task('build:wiredep', ['build:pug'], function() {
 
 gulp.task('build:inject', ['build:css', 'build:less', 'build:sass', 'build:stylus', 'build:wiredep', 'build:pug'], function() {
 
+	var scriptsFolderPath = config.folder.scripts;
 	var sources = [
 		config.src + config.tmp + '/**/*.css'
 	];
 
 	if(config.folder.scripts) {
-		sources.push(config.src + config.folder.scripts + '/**/*.js');
+		if(config.es6syntax) {
+			scriptsFolderPath = config.tmp;
+		}
+		sources.push(config.src + scriptsFolderPath + '/**/*.js');
 	}
 
 	var transform = {
