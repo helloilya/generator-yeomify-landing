@@ -86,6 +86,7 @@ var YeomifyLandingGenerator = yeoman.generators.Base.extend({
 
 		this.copy('htmlhintrc', '.htmlhintrc');
 		this.copy('jshintrc', '.jshintrc');
+		this.copy('es6hintrc', '.es6hintrc');
 
 		// Linters
 
