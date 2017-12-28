@@ -10,7 +10,7 @@ var $ = require('gulp-load-plugins')();
 
 /**
  *	Watch task
- *	@desc Run watcher for dist folder
+ *	@desc Runs watcher for dist folder
  */
 
 gulp.task('build:watch', function() {
@@ -28,23 +28,25 @@ gulp.task('build:watch', function() {
 
 /**
  *	Clean task
- *	@desc Remove temp and dist folders
+ *	@desc Removes temp and dist folders
+ *	@return
  */
 
 gulp.task('build:clean', function() {
 
-	gulp.src([config.dist, config.src + config.tmp])
+	return gulp.src([config.dist, config.src + config.tmp])
 		.pipe($.rimraf({ force: true }));
 
 });
 
 /**
  *	Copy task
- *	@desc Copy files and folders from root folder
+ *	@extends clean
+ *	@desc Copies files and folders from root folder
  *	@return
  */
 
-gulp.task('build:copy', function() {
+gulp.task('build:copy', ['build:clean'], function() {
 
 	if(config.copyfiles.length) {
 
@@ -62,11 +64,12 @@ gulp.task('build:copy', function() {
 
 /**
  *	Fonts task
- *	@desc Copy fonts to dist folder
+ *	@extends clean
+ *	@desc Copies fonts to dist folder
  *	@return
  */
 
-gulp.task('build:fonts', function() {
+gulp.task('build:fonts', ['build:clean'], function() {
 
 	if(config.folder.fonts) {
 
@@ -80,11 +83,12 @@ gulp.task('build:fonts', function() {
 
 /**
  *	Images task
- *	@desc Optimization images and copy files to dist folder
+ *	@extends clean
+ *	@desc Optimizations images, copies media files to dist folder
  *	@return
  */
 
-gulp.task('build:images', function() {
+gulp.task('build:images', ['build:clean'], function() {
 
 	var path = [];
 
@@ -114,11 +118,12 @@ gulp.task('build:images', function() {
 
 /**
  *	Css task
- *	@desc Concatenate css and copy file to temp folder
+ *	@extends clean
+ *	@desc Concatenates css, copies files to temp folder
  *	@return
  */
 
-gulp.task('build:css', function() {
+gulp.task('build:css', ['build:clean'], function() {
 
 	if(config.folder.styles && config.csstype === 'css') {
 
@@ -134,11 +139,12 @@ gulp.task('build:css', function() {
 
 /**
  *	Less task
- *	@desc Concatenate/compress less and copy file to temp folder
+ *	@extends clean
+ *	@desc Concatenates/compresses less, copies files to temp folder
  *	@return
  */
 
-gulp.task('build:less', function() {
+gulp.task('build:less', ['build:clean'], function() {
 
 	if(config.folder.styles && config.csstype === 'less') {
 
@@ -154,11 +160,12 @@ gulp.task('build:less', function() {
 
 /**
  *	Sass task
- *	@desc Concatenate/compress sass and copy file to temp folder
+ *	@extends clean
+ *	@desc Concatenates/compresses sass, copies files to temp folder
  *	@return
  */
 
-gulp.task('build:sass', function() {
+gulp.task('build:sass', ['build:clean'], function() {
 
 	if(config.folder.styles && config.csstype === 'sass') {
 
@@ -176,11 +183,12 @@ gulp.task('build:sass', function() {
 
 /**
  *	Stylus task
- *	@desc Concatenate/compress stylus, copy file to temp folder
+ *	@extends clean
+ *	@desc Concatenates/compresses stylus, copies files to temp folder
  *	@return
  */
 
-gulp.task('build:stylus', function() {
+gulp.task('build:stylus', ['build:clean'], function() {
 
 	if(config.folder.styles && config.csstype === 'stylus') {
 
@@ -198,11 +206,12 @@ gulp.task('build:stylus', function() {
 
 /**
  *	Pug task
- *	@desc Compile pug templates
+ *	@extends clean
+ *	@desc Compiles pug templates
  *	@return
  */
 
-gulp.task('build:pug', function() {
+gulp.task('build:pug', ['build:clean'], function() {
 
 	if(config.folder.pug) {
 
@@ -218,12 +227,12 @@ gulp.task('build:pug', function() {
 
 /**
  *	Bower task
- *	@extends pug
- *	@desc Inject bower dependencies to html
+ *	@extends clean, pug
+ *	@desc Injects bower dependencies into html
  *	@return
  */
 
-gulp.task('build:wiredep', ['build:pug'], function() {
+gulp.task('build:wiredep', ['build:clean', 'build:pug'], function() {
 
 	if(config.folder.vendors && fs.existsSync(config.src + config.folder.vendors)) {
 
@@ -238,13 +247,34 @@ gulp.task('build:wiredep', ['build:pug'], function() {
 });
 
 /**
+ *	Babel task
+ *	@extends clean
+ *	@desc Compiles js files base on babeljs
+ */
+
+gulp.task('build:babeljs', ['build:clean'], function() {
+
+	if(config.folder.scripts && config.es6syntax) {
+
+		gulp.src(config.src + config.folder.scripts + '/**/*.js')
+			.pipe($.plumber())
+			.pipe($.babel({
+				presets: ['env']
+			}))
+			.pipe(gulp.dest(config.src + config.tmp));
+
+	}
+
+});
+
+/**
  *	Inject task
- *	@extends css, less, sass, stylus, wiredep, pug
- *	@desc Inject js and css files to html
+ *	@extends clean, css, less, sass, stylus, wiredep, pug, babeljs
+ *	@desc Injects js and css files into html
  *	@return
  */
 
-gulp.task('build:inject', ['build:css', 'build:less', 'build:sass', 'build:stylus', 'build:wiredep', 'build:pug'], function() {
+gulp.task('build:inject', ['build:clean', 'build:css', 'build:less', 'build:sass', 'build:stylus', 'build:babeljs', 'build:wiredep', 'build:pug'], function() {
 
 	var scriptsFolderPath = config.folder.scripts;
 	var sources = [
@@ -283,12 +313,12 @@ gulp.task('build:inject', ['build:css', 'build:less', 'build:sass', 'build:stylu
 
 /**
  *	Assets task
- *	@extends inject
- *	@desc Concatenate/compress js and css files, copy files to dist folder, add hash to files name if rev flag set as true
+ *	@extends clean, inject
+ *	@desc Concatenates/compresses js and css files, copies files to the dist folder, adds hash to files name if rev flag set as true
  *	@return
  */
 
-gulp.task('build:assets', ['build:inject'], function() {
+gulp.task('build:assets', ['build:clean', 'build:inject'], function() {
 
 	var jsFilter = $.filter('**/*.js'),
 		cssFilter = $.filter('**/*.css');
@@ -313,11 +343,11 @@ gulp.task('build:assets', ['build:inject'], function() {
 
 /**
  *	Build task
- *	@extends copy, fonts, images, assets
- *	@desc Inject js and css files to html, compress html and replace paths
+ *	@extends clean, copy, fonts, images, assets
+ *	@desc Injects js and css files into html, compresses html and replace paths
  */
 
-gulp.task('build', ['build:copy', 'build:fonts', 'build:images', 'build:assets'], function() {
+gulp.task('build', ['build:clean', 'build:copy', 'build:fonts', 'build:images', 'build:assets'], function() {
 
 	gulp.src([config.src + '**/*.html', '!' + config.src + config.folder.vendors + '/**'])
 		.pipe($.inject(gulp.src(config.dist + 'css/**/*.css', { read: true }), { relative: true }))

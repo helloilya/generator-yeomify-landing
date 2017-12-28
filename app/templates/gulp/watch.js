@@ -10,7 +10,7 @@ var $ = require('gulp-load-plugins')();
 
 /**
  *	Transform paths function
- *	@desc Update paths before insert css and js into html file
+ *	@desc Updates paths before insert css and js into html file
  */
 
 function transformPaths() {
@@ -36,7 +36,7 @@ function transformPaths() {
 
 /**
  *	Return path to scripts folder
- *	@desc Return correct path to scripts folder base on es6syntax flag
+ *	@desc Returns correct path to scripts folder base on es6syntax flag
  */
 
 function getScriptsFolderPath() {
@@ -48,7 +48,7 @@ function getScriptsFolderPath() {
 
 /**
  *	BrowserSync task
- *	@desc Init BrowserSync
+ *	@desc Initializes BrowserSync
  */
 
 gulp.task('watch:sync', function() {
@@ -66,7 +66,7 @@ gulp.task('watch:sync', function() {
 
 /**
  *	Css task
- *	@desc Concatenate css, copy file to temp folder, validate css
+ *	@desc Concatenates css, copies files to temp folder, validates css
  *	@return
  */
 
@@ -89,7 +89,7 @@ gulp.task('watch:css', function() {
 
 /**
  *	Less task
- *	@desc Concatenate/compress less, copy file to temp folder, validate less
+ *	@desc Concatenates/compresses less, copies files to temp folder, validates less
  *	@return
  */
 
@@ -113,7 +113,7 @@ gulp.task('watch:less', function() {
 
 /**
  *	Sass task
- *	@desc Concatenate/compress sass, copy file to temp folder, validate sass
+ *	@desc Concatenates/compresses sass, copies files to temp folder, validates sass
  *	@return
  */
 
@@ -139,7 +139,7 @@ gulp.task('watch:sass', function() {
 
 /**
  *	Stylus task
- *	@desc Concatenate/compress stylus, copy file to temp folder, validate stylus
+ *	@desc Concatenates/compresses stylus, copies files to temp folder, validates stylus
  *	@return
  */
 
@@ -166,7 +166,7 @@ gulp.task('watch:stylus', function() {
 /**
  *	Reload styles task
  *	@extends css, sass, less, stylus
- *	@desc Compile styles, run sync reload
+ *	@desc Compiles styles, runs sync reload
  */
 
 gulp.task('watch:reloadstyles', ['watch:css', 'watch:sass', 'watch:less', 'watch:stylus'], function() {
@@ -181,7 +181,7 @@ gulp.task('watch:reloadstyles', ['watch:css', 'watch:sass', 'watch:less', 'watch
 
 /**
  *	Pug task
- *	@desc Compile pug templates
+ *	@desc Compiles pug templates
  *	@return
  */
 
@@ -202,7 +202,8 @@ gulp.task('watch:pug', function() {
 /**
  *	Reload pug task
  *	@extends wiredep
- *	@desc Compile pug, insert css and js, run sync reload
+ *	@desc Compiles pug, inserts css and js, runs sync reload
+ *	@return
  */
 
 gulp.task('watch:reloadpug', ['watch:wiredep'], function() {
@@ -227,7 +228,7 @@ gulp.task('watch:reloadpug', ['watch:wiredep'], function() {
 /**
  *	Bower task
  *	@extends pug
- *	@desc Inject bower dependencies in html
+ *	@desc Injects bower dependencies into html
  *	@return
  */
 
@@ -246,12 +247,25 @@ gulp.task('watch:wiredep', ['watch:pug'], function() {
 });
 
 /**
- *	Scripts task
- *	@extends babeljs
- *	@desc Validate js files
+ *	Clean js task
+ *	@desc Removes js files from temp folder
+ *	@return
  */
 
-gulp.task('watch:scripts', ['watch:babeljs'], function() {
+gulp.task('watch:cleanjs', function() {
+
+	return gulp.src([config.src + config.tmp + '/**/*.js'])
+		.pipe($.rimraf({ force: true }));
+
+});
+
+/**
+ *	Reload js task
+ *	@extends babeljs
+ *	@desc Compiles/validates js files, runs sync reload
+ */
+
+gulp.task('watch:reloadjs', ['watch:babeljs'], function() {
 
 	gulp.src(config.src + config.folder.scripts + '/**/*.js')
 		.pipe($.plumber())
@@ -264,15 +278,17 @@ gulp.task('watch:scripts', ['watch:babeljs'], function() {
 });
 
 /**
- *	Babel task
- *	@desc Compile js files base on babeljs
+ *	Babeljs task
+ *	@extends cleanjs
+ *	@desc Compiles js files base on babeljs
+ *	@return
  */
 
-gulp.task('watch:babeljs', function() {
+gulp.task('watch:babeljs', ['watch:cleanjs'], function() {
 
 	if(config.folder.scripts && config.es6syntax) {
 
-		gulp.src(config.src + config.folder.scripts + '/**/*.js')
+		return gulp.src(config.src + config.folder.scripts + '/**/*.js')
 			.pipe($.plumber())
 			.pipe($.babel({
 				presets: ['env']
@@ -285,7 +301,7 @@ gulp.task('watch:babeljs', function() {
 
 /**
  *	Html task
- *	@desc Validate html files
+ *	@desc Validates html files
  */
 
 gulp.task('watch:html', function() {
@@ -302,11 +318,12 @@ gulp.task('watch:html', function() {
 
 /**
  *	Inject task
- *	@extends wiredep, scripts, css, sass, less, stylus
- *	@desc Insert js and css files in html
+ *	@extends wiredep, babeljs, css, sass, less, stylus
+ *	@desc Inserts js and css files into html
+ *	@return
  */
 
-gulp.task('watch:inject', ['watch:wiredep', 'watch:scripts', 'watch:css', 'watch:sass', 'watch:less', 'watch:stylus'], function() {
+gulp.task('watch:inject', ['watch:wiredep', 'watch:babeljs', 'watch:css', 'watch:sass', 'watch:less', 'watch:stylus'], function() {
 
 	var sources = [
 		config.src + config.tmp + '/**/*.css'
@@ -325,7 +342,7 @@ gulp.task('watch:inject', ['watch:wiredep', 'watch:scripts', 'watch:css', 'watch
 /**
  *	Watch
  *	@extends inject, sync
- *	@desc Run browser sync and watcher for src folder
+ *	@desc Runs browser sync and watches for src folder
  */
 
 gulp.task('watch', ['watch:inject', 'watch:sync'], function() {
@@ -339,7 +356,7 @@ gulp.task('watch', ['watch:inject', 'watch:sync'], function() {
 	}
 
 	if(config.folder.scripts) {
-		gulp.watch(config.src + config.folder.scripts + '/**/*.js', ['watch:scripts']);
+		gulp.watch(config.src + config.folder.scripts + '/**/*.js', ['watch:reloadjs']);
 	}
 
 	if(!config.folder.pug) {
