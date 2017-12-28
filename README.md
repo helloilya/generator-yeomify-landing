@@ -66,6 +66,7 @@ Each template engine and preprocessor uses a linter. The documentation for linte
 
 ### Release History
 
+* 1.6.2 — Fixed minor bugs, updated descriptions.
 * 1.6.1 — Updated version of `require-dir` package.
 * 1.6.0 — Added `babeljs` support, updated javascript linter.
 * 1.5.0 — Added ability to copy folders and contents of them (expanded `copyfiles` parameter in `config.js`).
